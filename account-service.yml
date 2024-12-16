@@ -31,20 +31,20 @@ components:
       payload:
         $ref: '#/components/schemas/userSignedUpPayload'
 
-  schemas:
-    userSignedUpPayload:
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: "foo"
-        lastName:
-          type: string
-          description: "bar"
-        email:
-          type: string
-          format: email
-          description: "baz"
-        createdAt:
-          type: string
-          format: date-time  
+    schemas:
+      userSignedUpPayload:
+        type: object
+        properties:
+          firstName:
+            type: string
+            description: "foo"
+          lastName:
+            type: string
+            description: "bar"
+          email:
+            type: string
+            format: email
+            description: "baz"
+          createdAt:
+            type: string
+            format: date-time  
