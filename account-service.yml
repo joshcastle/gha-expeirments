@@ -1,12 +1,21 @@
-asyncapi: 2.0.0
+asyncapi: 2.6.0
 info:
   title: Account Service
+  contact:
+    name: API Support
+    url: https://www.example.com/support
+    email: example@example.com
   version: '1.0.0'
   description: |
     Manages user accounts in the system.
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+tags:
+  - name: tag1
+    description: tag1 description
+  - name: tag2
+    description: tag2 description
 
 servers:
   production:
@@ -17,6 +26,7 @@ servers:
 channels:
   user/signedup:
     subscribe:
+      description: Notify about new user registrations
       operationId: emitUserSignUpEvent
       message:
         $ref : '#/components/messages/UserSignedUp'
@@ -31,7 +41,7 @@ components:
       payload:
         $ref: '#/components/schemas/userSignedUpPayload'
 
-    schemas:
+  schemas:
       userSignedUpPayload:
         type: object
         properties:
@@ -47,4 +57,4 @@ components:
             description: "baz"
           createdAt:
             type: string
-            format: date-time  
+            format: date-time
