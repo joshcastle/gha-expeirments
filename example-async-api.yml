@@ -1,25 +1,39 @@
-asyncapi: 2.0.0
+asyncapi: '3.0.0'
 info:
-  title: Email Service
+  title: Example AsyncApi
   version: '1.0.0'
   description: |
-    Sends emails upon certain events
+    Add your multiline description here.
+  contact:
+    name: Contact Name
+    email: email@company.com
+    url: https://www.example.com
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  tags:
+    - name: tag1
+      description: tag1 description
+    - name: tag2
+      description: tag2 description
 
 servers:
   production:
-    url: mqtt://test.mosquitto.org
+    host: mqtt://test.mosquitto.org
     protocol: mqtt
     description: Test MQTT broker
 
+defaultContentType: application/json
+
 channels:
-  user/signedup:
-    publish:
-      operationId: onUserSignUp
-      message:
-        $ref : '#/components/messages/UserSignedUp'
+  userSignedUp:
+    address: users.{userId}
+    messages:
+      userSignedUp:
+        $ref: "#/components/messages/UserSignedUp"
+    bindings:
+      kafka:
+        partitions: 1
 
 components:
   messages:
@@ -49,3 +63,9 @@ components:
           type: string
           format: date-time
           description: "foo"
+
+
+
+
+
+
