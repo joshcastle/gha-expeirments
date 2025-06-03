@@ -1,7 +1,7 @@
 asyncapi: '3.0.0'
 info:
   title: Example AsyncApi
-  version: '1.0.0'
+  version: '1.0.1'
   description: |
     Add your multiline description here.
   contact:
