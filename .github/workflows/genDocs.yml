@@ -3,6 +3,9 @@ name: Generate Docs to GH Pages
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   generate_docs:
     runs-on: ubuntu-latest
