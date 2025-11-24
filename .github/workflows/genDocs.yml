@@ -19,7 +19,7 @@ jobs:
         # Path to AsyncAPI document. This input is required if command is set to generate, validate, convert or optimize. Default is ./asyncapi.yaml
         filepath: account-service.yml # optional, default is asyncapi.yml
         # Template for the generator. Official templates are listed here https://github.com/search?q=topic%3Aasyncapi+topic%3Agenerator+topic%3Atemplate. You can pass template as npm package, url to git repository, link to tar file or local template.
-        template: "@asyncapi/html-template@3.3.1" # optional, default is @asyncapi/markdown-template@0.10.0
+        template: "@asyncapi/html-template@2.3.14" # optional, default is @asyncapi/markdown-template@0.10.0
         output: generated-html
     - name: Deploy GH page
       uses: JamesIves/github-pages-deploy-action@3.4.2
