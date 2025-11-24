@@ -1,3 +1,5 @@
+name: Generate Docs to GH Pages
+
 on:
   workflow_dispatch:
 
