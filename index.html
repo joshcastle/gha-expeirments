@@ -12,10 +12,32 @@
             padding: 20px;
             line-height: 1.6;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
         h1 {
             color: #333;
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            margin: 0;
+            flex: 1;
+        }
+        .repo-button {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            margin-left: 20px;
+            transition: background-color 0.3s;
+        }
+        .repo-button:hover {
+            background-color: #0052a3;
         }
         ul {
             list-style-type: none;
@@ -35,11 +57,14 @@
     </style>
 </head>
 <body>
-    <h1>AsyncAPI Documentation</h1>
+    <div class="header">
+        <h1>gha-expeirments Interfaces:</h1>
+        <a href="https://github.com/joshcastle/gha-expeirments" class="repo-button">View Source Repo</a>
+    </div>
     <p>Available documentation:</p>
     <ul>
                 <li><a href="./ESS-account-service/">ESS-account-service</a></li>
-                <li><a href="./ESS-example-async-api/">ESS-example-async-api</a></li>
+        <li><a href="./ESS-example-async-api/">ESS-example-async-api</a></li>
     </ul>
 </body>
 </html>
