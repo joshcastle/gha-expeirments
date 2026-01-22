@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   generate_docs:
@@ -82,10 +84,11 @@ jobs:
         
         echo "Landing page generated at generated-html/index.html"
     
-    - name: Deploy to GH Pages
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Upload pages artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-        folder: generated-html
-        clean: true
+        path: 'generated-html'
+    
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
