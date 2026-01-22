@@ -59,62 +59,24 @@ jobs:
     
     - name: Generate landing page
       run: |
-        cat > generated-html/index.html << 'EOF'
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>AsyncAPI Documentation</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    max-width: 800px;
-                    margin: 50px auto;
-                    padding: 20px;
-                    line-height: 1.6;
-                }
-                h1 {
-                    color: #333;
-                    border-bottom: 2px solid #333;
-                    padding-bottom: 10px;
-                }
-                ul {
-                    list-style-type: none;
-                    padding: 0;
-                }
-                li {
-                    margin: 10px 0;
-                }
-                a {
-                    color: #0066cc;
-                    text-decoration: none;
-                    font-size: 18px;
-                }
-                a:hover {
-                    text-decoration: underline;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>AsyncAPI Documentation</h1>
-            <p>Available documentation:</p>
-            <ul>
-        EOF
+        # Extract repo name and URL
+        REPO_NAME="${GITHUB_REPOSITORY##*/}"
+        REPO_URL="https://github.com/$GITHUB_REPOSITORY"
         
-        # Add links for each generated document
+        # Build document links
+        DOCUMENT_LINKS=""
         for file in ESS-*.yml; do
           if [ -f "$file" ]; then
             basename="${file%.yml}"
-            echo "                <li><a href=\"./$basename/\">$basename</a></li>" >> generated-html/index.html
+            DOCUMENT_LINKS+="        <li><a href=\"./$basename/\">$basename</a></li>\n"
           fi
         done
         
-        cat >> generated-html/index.html << 'EOF'
-            </ul>
-        </body>
-        </html>
-        EOF
+        # Read template and replace placeholders
+        cp .github/templates/landing-page.html generated-html/index.html
+        sed -i "s|{{REPO_NAME}}|$REPO_NAME|g" generated-html/index.html
+        sed -i "s|{{REPO_URL}}|$REPO_URL|g" generated-html/index.html
+        sed -i "s|{{DOCUMENT_LINKS}}|$(echo -e "$DOCUMENT_LINKS" | sed 's/[&/\]/\\&/g')|g" generated-html/index.html
         
         echo "Landing page generated at generated-html/index.html"
     
