@@ -68,15 +68,17 @@ jobs:
         for file in ESS-*.yml; do
           if [ -f "$file" ]; then
             basename="${file%.yml}"
-            DOCUMENT_LINKS+="        <li><a href=\"./$basename/\">$basename</a></li>\n"
+            DOCUMENT_LINKS+="        <li><a href=\"./$basename/\">$basename</a></li>"$'\n'
           fi
         done
         
         # Read template and replace placeholders
         cp .github/templates/landing-page.html generated-html/index.html
-        sed -i "s|{{REPO_NAME}}|$REPO_NAME|g" generated-html/index.html
-        sed -i "s|{{REPO_URL}}|$REPO_URL|g" generated-html/index.html
-        sed -i "s|{{DOCUMENT_LINKS}}|$(echo -e "$DOCUMENT_LINKS" | sed 's/[&/\]/\\&/g')|g" generated-html/index.html
+        
+        # Use Perl for more robust multi-line replacement
+        perl -i -pe 's/{{REPO_NAME}}/'"$(echo "$REPO_NAME" | sed 's/[&/\]/\\&/g')"'/g' generated-html/index.html
+        perl -i -pe 's|{{REPO_URL}}|'"$REPO_URL"'|g' generated-html/index.html
+        perl -i -0777 -pe 's/{{DOCUMENT_LINKS}}/'"$(printf '%s\n' "$DOCUMENT_LINKS" | sed 's:[\/&]:\\&:g')"'/s' generated-html/index.html
         
         echo "Landing page generated at generated-html/index.html"
     
