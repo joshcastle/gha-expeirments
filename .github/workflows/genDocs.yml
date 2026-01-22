@@ -23,10 +23,8 @@ jobs:
       with:
         node-version: '20'
     
-    - name: Install AsyncAPI Generator
-      run: |
-        npm install -g @asyncapi/generator@2.4.1
-        npm install -g @asyncapi/html-template@2.3.14
+    - name: Install AsyncAPI CLI
+      run: npm install -g @asyncapi/cli
     
     - name: Discover ESS AsyncAPI files
       id: discover
@@ -54,8 +52,8 @@ jobs:
             basename="${file%.yml}"
             echo "Generating documentation for $file -> $basename/"
             
-            # Generate HTML documentation using ag (AsyncAPI Generator CLI)
-            ag "$file" @asyncapi/html-template@2.3.14 -o "generated-html/$basename" --force-write
+            # Generate HTML documentation using AsyncAPI CLI with latest html-template
+            asyncapi generate fromTemplate "$file" @asyncapi/html-template@2.3.14 --output "generated-html/$basename" --force-write
           fi
         done
     
